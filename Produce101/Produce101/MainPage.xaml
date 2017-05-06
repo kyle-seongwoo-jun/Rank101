@@ -2,10 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Produce101"
-             x:Class="Produce101.MainPage">
+             x:Class="Produce101.MainPage"
+             Title="Produce 101">
 
-	<Label Text="Welcome to Xamarin Forms!" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
+	<Button Text="Welcome to Xamarin Forms!" 
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" 
+            Clicked="Button_Clicked"/>
 
 </ContentPage>
