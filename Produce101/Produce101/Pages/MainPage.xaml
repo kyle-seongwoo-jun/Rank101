@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:pages="clr-namespace:Produce101.Pages"
+            x:Class="Produce101.Pages.MainPage"
+            Title="Produce 101">
+    <pages:RankPage>
+        <x:Arguments>
+            <x:Int32>1</x:Int32>
+        </x:Arguments>
+    </pages:RankPage>
+    
+    <pages:RankPage>
+        <x:Arguments>
+            <x:Int32>2</x:Int32>
+        </x:Arguments>
+    </pages:RankPage>
+    
+    <pages:RankPage>
+        <x:Arguments>
+            <x:Int32>3</x:Int32>
+        </x:Arguments>
+    </pages:RankPage>
+    
+    <pages:RankPage>
+        <x:Arguments>
+            <x:Int32>4</x:Int32>
+        </x:Arguments>
+    </pages:RankPage>
+</TabbedPage>

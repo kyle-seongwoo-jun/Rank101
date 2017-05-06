@@ -5,6 +5,8 @@ using System.Text;
 
 using Xamarin.Forms;
 
+using Produce101.Pages;
+
 namespace Produce101
 {
     public partial class App : Application
