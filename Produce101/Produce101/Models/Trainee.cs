@@ -15,14 +15,14 @@ namespace Produce101.Models
         public int count { get; set; }
         public string clips { get; set; }
         #region Result
-        public string result1 { set => Result = value; }
-        public string result2 { set => Result = value; }
-        public string result3 { set => Result = value; }
-        public string result4 { set => Result = value; }
-        public string result5 { set => Result = value; }
-        public string result6 { set => Result = value; }
-        public string result7 { set => Result = value; }
-        public string result8 { set => Result = value; }
+        public string result1 { set { Result = value; } }
+        public string result2 { set { Result = value; } }
+        public string result3 { set { Result = value; } }
+        public string result4 { set { Result = value; } }
+        public string result5 { set { Result = value; } }
+        public string result6 { set { Result = value; } }
+        public string result7 { set { Result = value; } }
+        public string result8 { set { Result = value; } }
         #endregion
         public string aWord { get; set; }
         public string height { get; set; }
