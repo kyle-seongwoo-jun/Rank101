@@ -152,7 +152,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Produce101\Rank101.csproj">
+    <ProjectReference Include="..\Rank101\Rank101.csproj">
       <Project>{B7344385-A8A9-4A55-A264-DF8745B4616E}</Project>
       <Name>Rank101</Name>
     </ProjectReference>
