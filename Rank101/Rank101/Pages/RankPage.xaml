@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Rank101"
+             x:Class="Rank101.Pages.RankPage">
+    <Grid>
+        <ListView x:Name="TraineeListView"
+                  ItemSelected="TraineeListView_ItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell Text="{Binding name}"
+                               TextColor="Black"
+                               Detail="{Binding agencyNm}">
+                        <ImageCell.ImageSource>
+                            <UriImageSource Uri="{Binding picUrl}" 
+                                            CachingEnabled="True"
+                                            CacheValidity="5"/>
+                        </ImageCell.ImageSource>
+                    </ImageCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>
