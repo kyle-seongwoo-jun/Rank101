@@ -30,17 +30,9 @@ namespace Rank101.Pages
             BindingContext = trainee;
 
             Title = trainee.name;
-        }
 
-        bool isFirst = true;
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
-
-            if (isFirst)
+            Device.BeginInvokeOnMainThread(async () =>
             {
-                isFirst = false;
-
                 var ranks = await DownloadRanks();
                 if (ranks != null)
                 {
@@ -50,14 +42,14 @@ namespace Rank101.Pages
                 {
                     await DisplayAlert("에러", "인터넷이 없네용", "확인");
                 }
-            }
+            });
         }
-
+        
         private void InitializeGraph(List<int> ranks)
         {
             var model = new PlotModel { Title = "순위" };
             model.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = 0, Maximum = 98, StartPosition = 1, EndPosition = 0, IsZoomEnabled = false, IsPanEnabled = false });
-            model.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, Minimum = 0.9, Maximum = 4.1, IsZoomEnabled = false, IsPanEnabled = false, IntervalLength = 90 });
+            model.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, Minimum = 0.9, Maximum = ranks.Count + 0.1, IsZoomEnabled = false, IsPanEnabled = false, IntervalLength = 90 });
 
             var lineSeries = new LineSeries();
             for (int i = 0; i < ranks.Count; i++)

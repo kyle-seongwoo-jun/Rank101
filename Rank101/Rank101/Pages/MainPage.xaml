@@ -27,4 +27,16 @@
             <x:Int32>4</x:Int32>
         </x:Arguments>
     </pages:RankPage>
+
+    <pages:RankPage>
+        <x:Arguments>
+            <x:Int32>5</x:Int32>
+        </x:Arguments>
+    </pages:RankPage>
+
+    <pages:RankPage>
+        <x:Arguments>
+            <x:Int32>6</x:Int32>
+        </x:Arguments>
+    </pages:RankPage>
 </TabbedPage>

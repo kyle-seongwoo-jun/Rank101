@@ -3,7 +3,7 @@
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "OxyPlot.Xamarin.Forms": "1.0.0",
     "Xam.Plugin.Connectivity": "2.3.0",
-    "Xam.Plugins.Settings": "2.5.4",
+    "Xam.Plugins.Settings": "2.5.8",
     "Xamarin.Forms": "2.3.4.224"
   },
   "frameworks": {

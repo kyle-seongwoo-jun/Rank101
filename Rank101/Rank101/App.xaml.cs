@@ -23,7 +23,7 @@ namespace Rank101
 
         protected override void OnStart()
         {
-            base.OnStart();
+            MobileCenter.LogLevel = LogLevel.Verbose;
 
             MobileCenter.Start("android=c53edf74-42e6-45b9-aea2-e35081876ab4;" +
                    "ios=9cffcd71-bb6b-4d89-8fec-9a1f1187c1cb",

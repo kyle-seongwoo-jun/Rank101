@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:Rank101"
              x:Class="Rank101.Pages.RankPage">
     <Grid>
+        <Image Source="tag_ranking.png"/>
+
         <ListView x:Name="TraineeListView"
                   ItemSelected="TraineeListView_ItemSelected">
             <ListView.ItemTemplate>
@@ -12,11 +14,12 @@
                                TextColor="Black"
                                Detail="{Binding agencyNm}">
                         <ImageCell.ImageSource>
-                            <UriImageSource Uri="{Binding picUrl}" 
+                            <UriImageSource Uri="{Binding picUrl}"
                                             CachingEnabled="True"
-                                            CacheValidity="5"/>
+                                            CacheValidity="5" />
                         </ImageCell.ImageSource>
                     </ImageCell>
+                    <!--"#0360e8"-->
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

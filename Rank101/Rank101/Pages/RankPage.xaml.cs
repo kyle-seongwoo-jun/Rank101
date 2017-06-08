@@ -16,18 +16,28 @@ namespace Rank101.Pages
 {
     public partial class RankPage : ContentPage
     {
+        #region Fields
+
         int week;
         bool isNeedToDownload;
+        bool isFirst = true;
+
+        #endregion
+
+        #region Properties
 
         ISettings settings => Plugin.Settings.CrossSettings.Current;
+
         IConnectivity connectivity => Plugin.Connectivity.CrossConnectivity.Current;
+
+        #endregion
 
         public RankPage(int week)
         {
             InitializeComponent();
-
+            
             this.week = week;
-            Title = week + "주차";
+            Title = week >= 5 ? (week + 1) + "주차" : week + "주차";
 
             isNeedToDownload = !settings.Contains($"week{week}");
             if (!isNeedToDownload)
@@ -37,7 +47,6 @@ namespace Rank101.Pages
             }
         }
 
-        bool isFirst = true;
         protected override async void OnAppearing()
         {
             base.OnAppearing();
@@ -62,7 +71,10 @@ namespace Rank101.Pages
             using (var client = new HttpClient())
             {
                 string json = await client.GetStringAsync($"http://onair.mnet.com/produce101/api/p101.profile.json?option=listCmd:s!-result{week}$,f!*@result{week}");
-                Plugin.Settings.CrossSettings.Current.AddOrUpdateValue($"week{week}", json);
+                if (Device.RuntimePlatform == "Android" && Device.RuntimePlatform == "iOS")
+                {
+                    Plugin.Settings.CrossSettings.Current.AddOrUpdateValue($"week{week}", json);
+                }
 
                 return parseJson(json);
             }
@@ -72,6 +84,8 @@ namespace Rank101.Pages
         {
             return JObject.Parse(json)["vl"].ToObject<Trainee[]>();
         }
+
+        #region Event Handler
 
         private void TraineeListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -83,5 +97,7 @@ namespace Rank101.Pages
                 Navigation.PushAsync(new TraineePage(trainee));
             }
         }
+
+        #endregion
     }
 }

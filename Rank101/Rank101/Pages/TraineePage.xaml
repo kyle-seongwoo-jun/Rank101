@@ -4,6 +4,6 @@
              xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
              x:Class="Rank101.Pages.TraineePage">
     <oxy:PlotView x:Name="plotView"
-                  HorizontalOptions="CenterAndExpand"
-                  VerticalOptions="CenterAndExpand" />
+                  HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand" />
 </ContentPage>
