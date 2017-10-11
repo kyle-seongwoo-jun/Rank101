@@ -24,6 +24,7 @@ namespace Rank101.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             OxyPlot.Xamarin.Forms.Platform.iOS.PlotViewRenderer.Init();
+            FFImageLoading.Forms.Touch.CachedImageRenderer.Init();
 
             LoadApplication(new App());
 

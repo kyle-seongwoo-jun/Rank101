@@ -22,6 +22,7 @@ namespace Rank101.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             OxyPlot.Xamarin.Forms.Platform.Android.PlotViewRenderer.Init();
+            FFImageLoading.Forms.Droid.CachedImageRenderer.Init();
 
             LoadApplication(new App());
         }

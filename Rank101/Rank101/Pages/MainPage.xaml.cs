@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-
 namespace Rank101.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]

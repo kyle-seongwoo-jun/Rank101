@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 using Newtonsoft.Json.Linq;
 using Plugin.Settings.Abstractions;
 using Plugin.Connectivity.Abstractions;
@@ -14,50 +15,49 @@ using Rank101.Models;
 
 namespace Rank101.Pages
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RankPage : ContentPage
     {
-        #region Fields
+        private BindableProperty WeekProperty = BindableProperty.Create("Week", typeof(int), typeof(RankPage), 0,
+                                                                        propertyChanged: async (b, o, n) =>
+                                                                        {
+                                                                            var view = b as RankPage;
+                                                                            var week = (int)n;
 
-        int week;
-        bool isNeedToDownload;
-        bool isFirst = true;
+                                                                            await view.OnWeekChanged(week);
+                                                                        });
 
-        #endregion
-
-        #region Properties
 
         ISettings settings => Plugin.Settings.CrossSettings.Current;
 
         IConnectivity connectivity => Plugin.Connectivity.CrossConnectivity.Current;
 
-        #endregion
-
-        public RankPage(int week)
+        public int Week
         {
-            InitializeComponent();
-            
-            this.week = week;
-            Title = week >= 5 ? (week + 1) + "주차" : week + "주차";
-
-            isNeedToDownload = !settings.Contains($"week{week}");
-            if (!isNeedToDownload)
-            {
-                string json = settings.GetValueOrDefault($"week{week}", "");
-                TraineeListView.ItemsSource = parseJson(json);
-            }
+            get => (int)GetValue(WeekProperty);
+            set => SetValue(WeekProperty, value);
         }
 
-        protected override async void OnAppearing()
+        public RankPage()
         {
-            base.OnAppearing();
+            InitializeComponent();
+        }
 
-            if (isFirst && isNeedToDownload)
+        private async Task OnWeekChanged(int week)
+        {
+            // set title
+            Title = week >= 5 ? (week + 1) + "주차" : week + "주차";
+
+            string json = settings.GetValueOrDefault($"week{week}", "");
+            if (json != "")
             {
-                isFirst = false;
-
+                TraineeListView.ItemsSource = JsonToTrainees(json);
+            }
+            else
+            {
                 if (connectivity.IsConnected)
                 {
-                    TraineeListView.ItemsSource = await DownloadTrainees(week);
+                    TraineeListView.ItemsSource = await DownloadTrainees(Week);
                 }
                 else
                 {
@@ -65,39 +65,41 @@ namespace Rank101.Pages
                 }
             }
         }
-        
+
         private async Task<Trainee[]> DownloadTrainees(int week)
         {
             using (var client = new HttpClient())
             {
                 string json = await client.GetStringAsync($"http://onair.mnet.com/produce101/api/p101.profile.json?option=listCmd:s!-result{week}$,f!*@result{week}");
-                if (Device.RuntimePlatform == "Android" && Device.RuntimePlatform == "iOS")
+                if (Device.RuntimePlatform == Device.Android && Device.RuntimePlatform == Device.iOS)
                 {
                     Plugin.Settings.CrossSettings.Current.AddOrUpdateValue($"week{week}", json);
                 }
 
-                return parseJson(json);
+                return JsonToTrainees(json);
             }
         }
 
-        private Trainee[] parseJson(string json)
+        private Trainee[] JsonToTrainees(string json)
         {
-            return JObject.Parse(json)["vl"].ToObject<Trainee[]>();
+            try
+            {
+                return JObject.Parse(json)["vl"].ToObject<Trainee[]>();
+            }
+            catch
+            {
+                return null;
+            }
         }
-
-        #region Event Handler
 
         private void TraineeListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             ((ListView)sender).SelectedItem = null;
 
-            if (e.SelectedItem != null)
+            if (e.SelectedItem is Trainee trainee)
             {
-                var trainee = e.SelectedItem as Trainee;
                 Navigation.PushAsync(new TraineePage(trainee));
             }
         }
-
-        #endregion
     }
 }
